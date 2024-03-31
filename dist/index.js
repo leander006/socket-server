@@ -18,6 +18,9 @@ const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
 const httpServer = (0, http_1.createServer)(app);
 const config_1 = require("./config");
+app.get("/", (req, res) => {
+    return res.json("Socket server is active 😀😍🥰");
+});
 httpServer.listen(config_1.PORT, () => __awaiter(void 0, void 0, void 0, function* () {
     console.log(`Backend runnig on port ${config_1.PORT}`);
 }));
@@ -36,7 +39,6 @@ io.on("connection", (socket) => {
     socket.on("send_message", ({ messageRecieved, room }) => {
         var chat = messageRecieved;
         chat.conversation.users.forEach((user) => __awaiter(void 0, void 0, void 0, function* () {
-            console.log("user.userId == messageRecieved.sender.id ", user.userId, " userId ahe te ", user.userId == messageRecieved.sender.id);
             if (user.userId == messageRecieved.sender.id)
                 return;
             socket.to(room).emit("get_Message", messageRecieved);

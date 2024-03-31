@@ -7,11 +7,15 @@ const httpServer = createServer(app);
 
 import {PORT} from "./config"
 
+app.get("/",(req,res) =>{
+  return res.json("Socket server is active 😀😍🥰")
+})
+
 httpServer.listen(PORT, async () => {
   console.log(`Backend runnig on port ${PORT}`);
 });
-//Socket //
 
+//Socket //
 const io = new Server(httpServer, { cors: { origin: "*" } });
 io.on("connection", (socket) => {
 
@@ -31,10 +35,7 @@ io.on("connection", (socket) => {
   socket.on("send_message", ({messageRecieved,room}) => {
     var chat = messageRecieved;
     
-    chat.conversation.users.forEach(async (user:any) => {
-
-      console.log("user.userId == messageRecieved.sender.id ",user.userId," userId ahe te ",user.userId == messageRecieved.sender.id);
-      
+    chat.conversation.users.forEach(async (user:any) => {      
       if (user.userId == messageRecieved.sender.id) return;
       socket.to(room).emit("get_Message",messageRecieved)
     });
