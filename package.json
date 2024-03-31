@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "pnpm tsc -b",
+    "build": "pnpm install && pnpm tsc -b",
     "dev": "nodemon dist/index.js",
     "start": "node dist/index.js"
   },
